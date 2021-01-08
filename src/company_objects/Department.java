@@ -1,6 +1,7 @@
 package company_objects;
 import java.util.ArrayList;
 
+
 public class Department {
     String department_name, description;
     Employee manager;
