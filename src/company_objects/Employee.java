@@ -5,6 +5,7 @@ import java.lang.*;
 import java.util.Objects;
 import java.util.ArrayList;
 
+
 public class Employee {
     ArrayList<Department> departments = new ArrayList<Department>();
     String name, specialty, education;
