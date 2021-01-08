@@ -1,7 +1,6 @@
 package utilities;
 import java.util.Calendar;
 
-
 public class Date {
     private int day = 1, month = 1, year = 2021;
 
