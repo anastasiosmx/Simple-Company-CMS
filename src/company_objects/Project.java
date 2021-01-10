@@ -1,7 +1,10 @@
 package company_objects;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
 import utilities.StringManipulation;
 import utilities.Date;
+import utilities.EmployeeManipulation;
 
 
 public class Project {
@@ -36,10 +39,30 @@ public class Project {
     public void setEmployeeToProject(Employee employee, String begin_date, String end_date){
         setStartingDate(begin_date);
         setEndingDate(end_date);
+        long total_salary_input = EmployeeTotalSalary();
+
+        String total_salary = String.valueOf(total_salary_input);
+
         employee_list.put(employee, new HashMap(){
             {put("Begin_date", getBegin_date().getDay()+"/"+getBegin_date().getMonth()+"/"+getBegin_date().getYear());}
             {put("End_date", getEnd_date().getDay()+"/"+getEnd_date().getMonth()+"/"+getEnd_date().getYear());}
+            {put("Total_Salary", total_salary);}
         });
+    }
+
+    public long EmployeeTotalSalary(){
+        EmployeeManipulation m1 = new EmployeeManipulation();
+        long total_salary = 0;
+
+        long monthsBetween = ChronoUnit.MONTHS.between(
+                LocalDate.parse(m1.toDateStringReversed(this.begin_date)).withDayOfMonth(1),
+                LocalDate.parse(m1.toDateStringReversed(this.end_date)).withDayOfMonth(1));
+
+        System.out.println("monthsBetween = "+monthsBetween);
+
+        total_salary =  monthsBetween * 100;
+
+        return total_salary;
     }
 
     public Date getBegin_date(){return this.begin_date;}
@@ -47,4 +70,18 @@ public class Project {
     public Date getEnd_date(){return this.end_date;}
 
     public HashMap getEmployee_List(){return this.employee_list;}
+
+    //TODO FIX
+    public int TotalProjectsEmployeesSalary(Employee e){
+        int total_employee_salary = 0;
+
+        for ( Object key : this.getEmployee_List().keySet() ) {
+            System.out.println(key);
+            System.out.println(this.getEmployee_List().get(e));
+        }
+
+        return total_employee_salary * total_employee_salary;
+    }
+
+
 }

@@ -1,6 +1,7 @@
 package company_objects;
 import utilities.Date;
 import utilities.EmployeeManipulation;
+import utilities.MoneyUtilities;
 import utilities.StringManipulation;
 import java.lang.*;
 import java.util.HashMap;
@@ -81,11 +82,12 @@ public class Employee {
 
     public int setSalary(int manager_subsidy, int num_of_projects){
         EmployeeManipulation m1 = new EmployeeManipulation();
+        MoneyUtilities m2 = new MoneyUtilities();
         int salary = 0;
         String start_work = m1.toDateString(this.start_work);
         System.out.println("EDW2 = "+start_work);
 
-        salary = 750 + m1.yearSubsidyCounter(start_work) + m1.kidsSubsidyCounter(this.num_of_kids) + m1.educationSubsidyCounter(this.educationLevel) + manager_subsidy + (100 * num_of_projects);
+        salary = 750 + m2.yearSubsidyCounter(start_work) + m2.kidsSubsidyCounter(this.num_of_kids) + m2.educationSubsidyCounter(this.educationLevel) + manager_subsidy + (100 * num_of_projects);
 
         return salary;
     }
