@@ -5,9 +5,7 @@ import java.util.Calendar;
 public class Date {
     private int day = 1, month = 1, year = 2021;
 
-    public Date(int day, int month, int year){
-        setDate(day, month, year);
-    }
+    public Date(int day, int month, int year){setDate(day, month, year);}
 
     public void setDay(int day){
         if(day >= 0 && day <= 31){
@@ -39,4 +37,6 @@ public class Date {
     public int getMonth(){return month;}
 
     public int getYear(){return year;}
+
+
 }
