@@ -1,6 +1,7 @@
 package company_objects;
 import java.time.LocalDate;
 import java.time.temporal.ChronoUnit;
+import java.util.ArrayList;
 import java.util.HashMap;
 import utilities.StringManipulation;
 import utilities.Date;
@@ -8,13 +9,16 @@ import utilities.EmployeeManipulation;
 
 
 public class Project {
-    HashMap<Employee, HashMap<String, String>> employee_list= new HashMap<Employee, HashMap<String, String>>();
+    HashMap<Employee, HashMap<String, String>> employee_list;
+    private ArrayList<Employee> employees;
     private Date begin_date, end_date;
 
     String project_name, description;
     int gross_revenue, general_expenses, operating_expenses;
 
     public Project(String project_name, String description, String gross_revenue, String general_expenses, String operating_expenses){
+        employee_list = new HashMap<Employee, HashMap<String, String>>();
+        employees = new ArrayList<Employee>();
         this.project_name       = project_name;
         this.description        = description;
         this.general_expenses   = Integer.parseInt(general_expenses);
@@ -43,11 +47,15 @@ public class Project {
 
         String total_salary = String.valueOf(total_salary_input);
 
-        employee_list.put(employee, new HashMap(){
+        employees.add(employee);
+
+        employee_list.put(employee, new HashMap<String, String>(){
             {put("Begin_date", getBegin_date().getDay()+"/"+getBegin_date().getMonth()+"/"+getBegin_date().getYear());}
             {put("End_date", getEnd_date().getDay()+"/"+getEnd_date().getMonth()+"/"+getEnd_date().getYear());}
             {put("Total_Salary", total_salary);}
         });
+
+
     }
 
     public long EmployeeTotalSalary(){
@@ -71,17 +79,18 @@ public class Project {
 
     public HashMap getEmployee_List(){return this.employee_list;}
 
-    //TODO FIX
-    public int TotalProjectsEmployeesSalary(Employee e){
+    public int getTotalProjectsEmployeesSalary(){
         int total_employee_salary = 0;
+        Employee e1;
 
-        for ( Object key : this.getEmployee_List().keySet() ) {
-            System.out.println(key);
-            System.out.println(this.getEmployee_List().get(e));
+        for(int i = 0; i < this.employees.size() ; i++){
+            e1 = this.employees.get(i);
+            total_employee_salary += Integer.parseInt(this.employee_list.get(e1).get("Total_Salary"));
         }
 
-        return total_employee_salary * total_employee_salary;
+        return total_employee_salary;
     }
 
+    public String getProject_name(){return this.project_name;}
 
 }

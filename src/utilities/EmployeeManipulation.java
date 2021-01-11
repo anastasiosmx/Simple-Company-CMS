@@ -13,25 +13,28 @@ public class EmployeeManipulation {
 
         if(!is_manager){
             Date start_manager = new Date(1,1,1);
+
             employee.setStartManager(start_manager);
             employee.setSalary(0, employee.project_list.size());
-
             employee.setIsManager("n");
+
             if(employee.getDepartment() != null){
                 old_dep = employee.getDepartment();
                 old_dep.setManager(null);
             }
-            employee.set_Department(department);
+
+            department.add_Employee(employee);
         }else{
             int[] start_manager_int =   man.StringDateTokenizer(start_manager_input);
             Date start_manager      =   new Date(start_manager_int[0], start_manager_int[1], start_manager_int[2]);
+
             employee.setStartManager(start_manager);
             employee.setSalary(400, employee.project_list.size());
-
             employee.setIsManager("y");
-            department.getManager().setIsManager("N");
+
             department.setManager(employee);
-            employee.set_Department(department);
+            department.add_Employee(employee);
+
             System.out.println("New manager! Say hello to "+department.getManager().getName());
         }
     }

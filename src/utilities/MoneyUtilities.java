@@ -1,6 +1,8 @@
 package utilities;
 import java.util.Calendar;
 import java.util.HashMap;
+import company_objects.Department;
+
 
 public class MoneyUtilities {
     static final HashMap<Integer,Integer> EDUCATION_SUBSIDY = new HashMap<Integer, Integer>();
@@ -11,15 +13,14 @@ public class MoneyUtilities {
         EDUCATION_SUBSIDY.put(4, 240);
     }
 
-   //public int TotalProjectsEmployeesSalary(Project project){
-   //    int total_employee_salary = 0;
+    public int TotalDepartmentsEmployeesSalary(Department department){
+        int total_employee_salary = 0;
 
-   //    for(int i = 0; i < project.getEmployee_List().size() ; i++){
-   //        System.out.println("PROJECT EDW = "+project.getEmployee_List().get(i));
-   //    }
-
-   //    return total_employee_salary * total_employee_salary;
-   //}
+        for(int i = 0 ; i < department.getEmployeeList().size() ; i++){
+            total_employee_salary += department.getEmployeeList().get(i).getSalary();
+        }
+        return total_employee_salary;
+    }
 
     public int yearSubsidyCounter(String start_year_tmp){
         StringManipulation m1 = new StringManipulation();
