@@ -16,6 +16,8 @@ public class Project {
     String project_name, description;
     int gross_revenue, general_expenses, operating_expenses;
 
+    public Project(){}
+
     public Project(String project_name, String description, String gross_revenue, String general_expenses, String operating_expenses){
         employee_list = new HashMap<Employee, HashMap<String, String>>();
         employees = new ArrayList<Employee>();
@@ -54,8 +56,6 @@ public class Project {
             {put("End_date", getEnd_date().getDay()+"/"+getEnd_date().getMonth()+"/"+getEnd_date().getYear());}
             {put("Total_Salary", total_salary);}
         });
-
-
     }
 
     public long EmployeeTotalSalary(){
@@ -93,4 +93,9 @@ public class Project {
 
     public String getProject_name(){return this.project_name;}
 
+    public int getGross_revenue(){return this.gross_revenue;}
+
+    public int getGeneral_expenses(){return this.general_expenses;}
+
+    public int getOperating_expenses(){return this.operating_expenses;}
 }

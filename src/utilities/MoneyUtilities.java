@@ -1,7 +1,9 @@
 package utilities;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
 import company_objects.Department;
+import company_objects.Project;
 
 
 public class MoneyUtilities {
@@ -58,5 +60,25 @@ public class MoneyUtilities {
     public int educationSubsidyCounter(int education_level) {
         int subsidy = EDUCATION_SUBSIDY.get(education_level);
         return subsidy;
+    }
+
+    public int trueProjectIncome(Project project){
+        int total_expenses = project.getGeneral_expenses() + project.getOperating_expenses() + project.getTotalProjectsEmployeesSalary();
+        int true_income = project.getGross_revenue() - total_expenses;
+        return true_income;
+    }
+
+    public Project bestProject(ArrayList<Project> project){
+        int max_income = 0;
+        Project d1 = new Project();
+        MoneyUtilities m1 = new MoneyUtilities();
+
+        for(int i = 0 ; i < project.size() ; i++){
+            if(m1.trueProjectIncome(project.get(i)) > max_income){
+                max_income = m1.trueProjectIncome(project.get(i));
+                d1 = project.get(i);
+            }
+        }
+        return d1;
     }
 }
