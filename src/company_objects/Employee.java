@@ -9,15 +9,15 @@ import java.util.HashMap;
 //TODO Add Help menu for option on creating employees, deprts etc
 public class Employee {
     private String speciality, education_name;
-    private boolean married;
+    private boolean married, is_manager;
     private int num_of_kids, educationLevel, salary;
     private Department department;
+    private Date start_manager;
 
     String name;
-    Date birth_date, start_work, start_manager;
-    boolean is_manager;
+    Date birth_date, start_work;
 
-    HashMap<Project, HashMap<String, String>> project_list= new HashMap<Project, HashMap<String, String>>();
+    public HashMap<Project, HashMap<String, String>> project_list= new HashMap<Project, HashMap<String, String>>();
 
     static final HashMap<Integer,String> EDUCATION_LEVELS = new HashMap<Integer, String>();
     static {
@@ -27,8 +27,9 @@ public class Employee {
         EDUCATION_LEVELS.put(4, "Doctorate");
     }
 
+    public Employee(){}
 
-    public Employee(String name, String birth_date_input, String start_work_input, String married, int num_of_kids, String speciality, int educationLevel, String is_manager, String start_manager_input){
+    public Employee(String name, String birth_date_input, String start_work_input, String married, int num_of_kids, String speciality, int educationLevel){
         StringManipulation string_manipulated = new StringManipulation();
 
         int[] birth_date_int = string_manipulated.StringDateTokenizer(birth_date_input);
@@ -40,20 +41,9 @@ public class Employee {
         this.name           =   name;
         this.birth_date     =   birth_date;
         this.start_work     =   start_work;
-        this.is_manager     =   string_manipulated.IsTrue(is_manager);
+
 
         setSpecialInfo(educationLevel, num_of_kids, speciality, married);
-
-        if(!this.is_manager){
-            Date start_manager = new Date(1,1,1);
-            this.start_manager = start_manager;
-            this.salary = setSalary(0, project_list.size());
-        }else{
-            int[] start_manager_int =  string_manipulated.StringDateTokenizer(start_manager_input);
-            Date start_manager = new Date(start_manager_int[0], start_manager_int[1], start_manager_int[2]);
-            this.start_manager = start_manager;
-            this.salary = setSalary(400, project_list.size());
-        }
     }
 
     public void set_Department(Department department){this.department = department;}
@@ -80,16 +70,16 @@ public class Employee {
         setMarriedState(married);
     }
 
-    public int setSalary(int manager_subsidy, int num_of_projects){
+    public void setSalary(int manager_subsidy, int num_of_projects){
+        int salary = 0;
         EmployeeManipulation m1 = new EmployeeManipulation();
         MoneyUtilities m2 = new MoneyUtilities();
-        int salary = 0;
+
         String start_work = m1.toDateString(this.start_work);
-        System.out.println("EDW2 = "+start_work);
 
         salary = 750 + m2.yearSubsidyCounter(start_work) + m2.kidsSubsidyCounter(this.num_of_kids) + m2.educationSubsidyCounter(this.educationLevel) + manager_subsidy + (100 * num_of_projects);
 
-        return salary;
+        this.salary = salary;
     }
 
     public void setProjectToEmployee(Project project){
@@ -97,6 +87,15 @@ public class Employee {
             {put("Begin_date", project.getBegin_date().getDay()+"/"+project.getBegin_date().getMonth()+"/"+project.getBegin_date().getYear());}
             {put("End_date", project.getEnd_date().getDay()+"/"+project.getEnd_date().getMonth()+"/"+project.getEnd_date().getYear());}
         });
+    }
+
+    public void setIsManager(String isManager){
+        StringManipulation man1 = new StringManipulation();
+        this.is_manager = man1.IsTrue(isManager);
+    }
+
+    public void setStartManager(Date start_manager_input){
+        this.start_manager = start_manager_input;
     }
 
     public Department getDepartment(){return this.department;}
@@ -112,6 +111,12 @@ public class Employee {
     public int getEducationLevel(){return this.educationLevel;}
 
     public Date getStart_work(){return this.start_work;}
+
+    public boolean getManagerState(){return this.is_manager;}
+
+    public Date getStart_manager(){return this.start_manager;}
+
+    public String getName(){return this.name;}
 
     public int getSalary(){return this.salary;}
 }

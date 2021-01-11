@@ -1,8 +1,5 @@
 package utilities;
-import company_objects.Department;
-import company_objects.Project;
 import java.util.Calendar;
-import java.util.Collection;
 import java.util.HashMap;
 
 public class MoneyUtilities {
@@ -25,7 +22,6 @@ public class MoneyUtilities {
    //}
 
     public int yearSubsidyCounter(String start_year_tmp){
-        System.out.println("EDW: "+start_year_tmp);
         StringManipulation m1 = new StringManipulation();
 
         int subsidy = 0;
