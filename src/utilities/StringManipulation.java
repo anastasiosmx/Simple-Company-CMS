@@ -1,16 +1,97 @@
 package utilities;
+import company_objects.Department;
+import company_objects.Employee;
+import company_objects.Project;
+import jdk.swing.interop.SwingInterOpUtils;
+
+import java.util.ArrayList;
 import java.util.Objects;
 
 
 public class StringManipulation {
     public int[] StringDateTokenizer(String object){
         String[] object_split = object.split("/");
-        int b_day   = Integer.parseInt(object_split[0]);
-        int b_month = Integer.parseInt(object_split[1]);
-        int b_year  = Integer.parseInt(object_split[2]);
+        int b_day   =   Integer.parseInt(object_split[0]);
+        int b_month =   Integer.parseInt(object_split[1]);
+        int b_year  =   Integer.parseInt(object_split[2]);
 
         return new int[]{b_day,b_month,b_year};
     }
 
     public boolean IsTrue(String object){return Objects.equals("Y", object.toUpperCase());}
+
+    public Employee EmployeeFromFileTokenized(String object_to_be_tokenized){
+        String[] res_tmp    =   object_to_be_tokenized.split(":");
+
+        String fullname     =   res_tmp[0];
+        String birth_date   =   res_tmp[1];
+        String ismarried    =   res_tmp[2];
+        int num_of_kids     =   Integer.parseInt(res_tmp[3]);
+        String started_working  =   res_tmp[4];
+        String speciality   =   res_tmp[5];
+        int education_level =   Integer.parseInt(res_tmp[6]);
+
+        Employee e = new Employee(fullname, birth_date, started_working, ismarried, num_of_kids, speciality, education_level);
+
+        return e;
+    }
+
+    public Department DepartmentFromFileTokenized(String object_to_be_tokenized){
+        String[] res_tmp    =   object_to_be_tokenized.split(":");
+
+        String dep_name     =   res_tmp[0];
+        String dep_descr    =   res_tmp[1];
+
+        Department d = new Department(dep_name, dep_descr);
+        return d;
+    }
+
+    public Project ProjectFromFileTokenized(String object_to_be_tokenized){
+        String[] res_tmp = object_to_be_tokenized.split(":");
+
+        String proj_name    =   res_tmp[0];
+        String proj_descr   =   res_tmp[1];
+        String groos_rev    =   res_tmp[2];
+        String gen_exp      =   res_tmp[3];
+        String op_exp       =   res_tmp[4];
+
+        Project p = new Project(proj_name,proj_descr, groos_rev,gen_exp,op_exp);
+        return p;
+    }
+
+    public void getDepartmentsfromEmployees(String object_to_be_tokenized, ArrayList<Employee> employees, ArrayList<Department> departments){
+        int employee_index = 0, department_index = 0;
+        String[] res;
+        EmployeeManipulation man = new EmployeeManipulation();
+
+        String[] res_tmp    =   object_to_be_tokenized.split(":");
+        String employee_name    =   res_tmp[0];
+        String[] proj_tmp   =   res_tmp[7].split(";");
+
+        for(int j = 0 ; j < employees.size() ; j++){
+            if(Objects.equals(employee_name, employees.get(j).getName())){
+               employee_index = j;
+               break;
+            }
+        }
+
+        for(int i = 0 ; i < proj_tmp.length ; i++){
+            res = proj_tmp[i].split(":");
+            System.out.println(res[i]);
+        }
+
+        //String department_name = res[0];
+        //String ismanager = res[1];
+        //String start_manager_date = res[2];
+//
+        //for(int k = 0 ; k < departments.size() ; k++){
+        //    if(Objects.equals(department_name, departments.get(k).getDepartment_name())){
+        //        department_index = k;
+        //        break;
+        //    }
+        //}
+//
+        //man.MoveEmployee(employees.get(employee_index), departments.get(department_index), ismanager, start_manager_date);
+    }
+
 }

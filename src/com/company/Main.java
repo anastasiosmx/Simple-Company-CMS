@@ -4,14 +4,26 @@ import company_objects.Department;
 import company_objects.Project;
 import utilities.EmployeeManipulation;
 import utilities.MoneyUtilities;
+import utilities.File_utilities;
 import java.util.ArrayList;
 
 
 public class Main {
 
     public static void main(String[] args) {
-        ArrayList<Project> all_projects = new ArrayList<Project>();
-        Project proj1 = new Project();
+        ArrayList<Employee> employees;
+        ArrayList<Department> departments;
+        ArrayList<Project> all_projects;
+
+        File_utilities f = new File_utilities();
+        employees = f.readEmployeesFromDir("C:\\Users\\Anastasios\\Desktop\\Company_Cms\\DB\\Employees");
+        departments = f.readDepartmentsFromDir("C:\\Users\\Anastasios\\Desktop\\Company_Cms\\DB\\Departments");
+        all_projects = f.readProjectsFromDir("C:\\Users\\Anastasios\\Desktop\\Company_Cms\\DB\\Projects");
+
+        f.setDepartmentsToEmployees("C:\\Users\\Anastasios\\Desktop\\Company_Cms\\DB\\Employees", employees, departments);
+        System.out.println("SOSOSOSOSO: "+employees.get(0).getDepartment().getDepartment_name());
+
+        //Project proj1 = new Project();
 
         MoneyUtilities m1 = new MoneyUtilities();
         EmployeeManipulation man = new EmployeeManipulation();
@@ -27,12 +39,12 @@ public class Main {
         man.MoveEmployee(e1,d2, "n", "10/10/2020");
 
         Project Acropolis = new Project("Acropolis", "Acropolis maintenance", "256788", "100000", "20000");
-        all_projects.add(Acropolis);
+        //all_projects.add(Acropolis);
         Acropolis.setEmployeeToProject(e1,"10/05/2020","20/07/2020");
         Acropolis.setEmployeeToProject(e2,"10/05/2020","20/08/2020");
 
         Project SNF = new Project("Stavros Niarxos Foundation", "Construction of SNF building", "400000", "5000", "10000");
-        all_projects.add(SNF);
+        //all_projects.add(SNF);
 
         e1.setProjectToEmployee(Acropolis);
         e2.setProjectToEmployee(Acropolis);
@@ -41,7 +53,7 @@ public class Main {
         System.out.println("Total employees salary for the project "+Acropolis.getProject_name()+" is "+Acropolis.getTotalProjectsEmployeesSalary());
         System.out.println("Total income for a project = "+m1.trueProjectIncome(Acropolis));
 
-        proj1 = m1.bestProject(all_projects);
-        System.out.println("The best project, based on the total income is "+proj1.getProject_name());
+       // proj1 = m1.bestProject(all_projects);
+        //System.out.println("The best project, based on the total income is "+proj1.getProject_name());
     }
 }
