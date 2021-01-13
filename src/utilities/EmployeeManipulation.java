@@ -8,7 +8,7 @@ public class EmployeeManipulation {
         Department old_dep;
         boolean is_manager;
         StringManipulation man = new StringManipulation();
-
+        System.out.println("dep name = "+department.getDepartment_name()+" employee name = "+employee.getName()+" is manager input = "+is_manager_input+" start manager input = "+start_manager_input);
         is_manager = man.IsTrue(is_manager_input);
 
         if(!is_manager){

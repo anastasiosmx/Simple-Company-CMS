@@ -94,9 +94,7 @@ public class Employee {
         this.is_manager = man1.IsTrue(isManager);
     }
 
-    public void setStartManager(Date start_manager_input){
-        this.start_manager = start_manager_input;
-    }
+    public void setStartManager(Date start_manager_input){this.start_manager = start_manager_input;}
 
     public Department getDepartment(){return this.department;}
 
@@ -119,4 +117,6 @@ public class Employee {
     public String getName(){return this.name;}
 
     public int getSalary(){return this.salary;}
+
+    public HashMap<Project, HashMap<String,String>> getProject_list(){return this.project_list;}
 }

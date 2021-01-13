@@ -20,8 +20,7 @@ public class Main {
         departments = f.readDepartmentsFromDir("C:\\Users\\Anastasios\\Desktop\\Company_Cms\\DB\\Departments");
         all_projects = f.readProjectsFromDir("C:\\Users\\Anastasios\\Desktop\\Company_Cms\\DB\\Projects");
 
-        f.setDepartmentsToEmployees("C:\\Users\\Anastasios\\Desktop\\Company_Cms\\DB\\Employees", employees, departments);
-        System.out.println("SOSOSOSOSO: "+employees.get(0).getDepartment().getDepartment_name());
+        f.setProjectsToEmployees("C:\\Users\\Anastasios\\Desktop\\Company_Cms\\DB\\Employees", employees, all_projects);
 
         //Project proj1 = new Project();
 
@@ -49,9 +48,9 @@ public class Main {
         e1.setProjectToEmployee(Acropolis);
         e2.setProjectToEmployee(Acropolis);
 
-        System.out.println(d2.getDepartment_name()+" total employees salary = "+m1.TotalDepartmentsEmployeesSalary(d2));
-        System.out.println("Total employees salary for the project "+Acropolis.getProject_name()+" is "+Acropolis.getTotalProjectsEmployeesSalary());
-        System.out.println("Total income for a project = "+m1.trueProjectIncome(Acropolis));
+        //System.out.println(d2.getDepartment_name()+" total employees salary = "+m1.TotalDepartmentsEmployeesSalary(d2));
+        //System.out.println("Total employees salary for the project "+Acropolis.getProject_name()+" is "+Acropolis.getTotalProjectsEmployeesSalary());
+        //System.out.println("Total income for a project = "+m1.trueProjectIncome(Acropolis));
 
        // proj1 = m1.bestProject(all_projects);
         //System.out.println("The best project, based on the total income is "+proj1.getProject_name());

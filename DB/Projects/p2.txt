@@ -1,0 +1,2 @@
+SNF:Create SNF building:1500000:50000:150000:
+Dimitris Mantis;Anastasios Mexias
