@@ -8,7 +8,6 @@ public class EmployeeManipulation {
         Department old_dep;
         boolean is_manager;
         StringManipulation man = new StringManipulation();
-        System.out.println("dep name = "+department.getDepartment_name()+" employee name = "+employee.getName()+" is manager input = "+is_manager_input+" start manager input = "+start_manager_input);
         is_manager = man.IsTrue(is_manager_input);
 
         if(!is_manager){
@@ -24,6 +23,7 @@ public class EmployeeManipulation {
             }
 
             department.add_Employee(employee);
+            employee.set_Department(department);
         }else{
             int[] start_manager_int =   man.StringDateTokenizer(start_manager_input);
             Date start_manager      =   new Date(start_manager_int[0], start_manager_int[1], start_manager_int[2]);
@@ -34,7 +34,7 @@ public class EmployeeManipulation {
 
             department.setManager(employee);
             department.add_Employee(employee);
-
+            employee.set_Department(department);
             System.out.println("New manager! Say hello to "+department.getManager().getName());
         }
     }

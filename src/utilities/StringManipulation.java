@@ -22,16 +22,19 @@ public class StringManipulation {
 
     public Employee EmployeeFromFileTokenized(String object_to_be_tokenized){
         String[] res_tmp    =   object_to_be_tokenized.split(":");
+        StringManipulation man = new StringManipulation();
 
-        String fullname     =   res_tmp[0];
-        String birth_date   =   res_tmp[1];
-        String ismarried    =   res_tmp[2];
-        int num_of_kids     =   Integer.parseInt(res_tmp[3]);
-        String started_working  =   res_tmp[4];
-        String speciality   =   res_tmp[5];
-        int education_level =   Integer.parseInt(res_tmp[6]);
+        String fullname     =       res_tmp[0];
+        String birth_date   =       res_tmp[1];
+        String ismarried    =       res_tmp[2];
+        String isManager    =       res_tmp[3];
+        int num_of_kids     =       Integer.parseInt(res_tmp[4]);
+        String started_working  =   res_tmp[5];
+        String speciality   =       res_tmp[6];
+        int education_level =       Integer.parseInt(res_tmp[7]);
 
         Employee e = new Employee(fullname, birth_date, started_working, ismarried, num_of_kids, speciality, education_level);
+        e.setIsManager(isManager);
 
         return e;
     }
@@ -66,8 +69,8 @@ public class StringManipulation {
         String[] res_tmp    =   object_to_be_tokenized.split(":");
         String employee_name    =   res_tmp[0];
 
-        for(int k = 7 ; k < res_tmp.length ; k++){
-            proj_tmp[k-7] = res_tmp[k];
+        for(int k = 8 ; k < res_tmp.length ; k++){
+            proj_tmp[k-8] = res_tmp[k];
         }
 
         for(int l = 0 ; l < employees.size() ; l++){
@@ -102,15 +105,19 @@ public class StringManipulation {
     public String[] getDepartmentsToEmployees(String object_to_be_tokenized, ArrayList<Employee> employees, ArrayList<Department> departments){
         int departments_index   = 0;
         int employee_index      = 0;
-
+        String isManager = "", startManagerDate = "";
         EmployeeManipulation man = new EmployeeManipulation();
         String[] res_tmp        =   object_to_be_tokenized.split(":");
         String[] proj_tmp       = new String[100];
         String departments_name = res_tmp[0];
 
+
+
         for(int i = 2 ; i < res_tmp.length ; i++){
             proj_tmp[i-2] = res_tmp[i];
         }
+
+        startManagerDate = proj_tmp[0];
 
         for(int j = 0 ; j < departments.size() ; j++){
             if(Objects.equals(departments_name, departments.get(j).getDepartment_name())){
@@ -119,15 +126,23 @@ public class StringManipulation {
             }
         }
 
-
-            for(int k = 0 ; k < proj_tmp.length ; k++){
-                for(int j = 0 ; j < employees.size() ; j++) {
-                    if(Objects.equals(proj_tmp[k], employees.get(j).getName())){
-                        employee_index = j;
-
+        for(int k = 0 ; k < proj_tmp.length ; k++){
+            for(int j = 0 ; j < employees.size() ; j++) {
+                if(Objects.equals(proj_tmp[k], employees.get(j).getName())){
+                    employee_index = j;
+                    if(employees.get(employee_index).getManagerState()){
+                        isManager += "y";
+                    }else{
+                        isManager += "n";
+                        startManagerDate += "10/10/2020";
                     }
+
+                    man.MoveEmployee(employees.get(employee_index), departments.get(departments_index), isManager, startManagerDate);
                 }
             }
+        }
+
+
 
         return proj_tmp;
     }

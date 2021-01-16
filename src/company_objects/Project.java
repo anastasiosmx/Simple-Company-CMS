@@ -66,8 +66,6 @@ public class Project {
                 LocalDate.parse(m1.toDateStringReversed(this.begin_date)).withDayOfMonth(1),
                 LocalDate.parse(m1.toDateStringReversed(this.end_date)).withDayOfMonth(1));
 
-        System.out.println("monthsBetween = "+monthsBetween);
-
         total_salary =  monthsBetween * 100;
 
         return total_salary;

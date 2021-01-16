@@ -167,4 +167,18 @@ public class File_utilities {
             System.out.println(e.getMessage());
         }
     }
+
+    public void saveToDB(String path, Employee employees, Department departments, Project projects){
+        try{
+            String text= "TEXT";
+           //TODO FIX IT -- Loops for all employees / dep / proj save them top the arraylists
+
+            FileWriter f = new FileWriter(path);
+            BufferedWriter b = new BufferedWriter(f);
+            b.write(text);
+            b.close();
+        }catch (IOException e){
+            System.out.println(e.getMessage());
+        }
+    }
 }
