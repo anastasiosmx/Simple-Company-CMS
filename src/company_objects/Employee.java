@@ -118,5 +118,7 @@ public class Employee {
 
     public int getSalary(){return this.salary;}
 
+    public Date getBirthDate(){return this.birth_date;}
+
     public HashMap<Project, HashMap<String,String>> getProject_list(){return this.project_list;}
 }
