@@ -12,6 +12,7 @@ import javax.swing.JTable;
 
 
 public class CompanyCMS extends JFrame implements ActionListener{
+    //SHMEIWSH: Ta grafika doulevun opws kai oi sunartiseis mesa stin ActionPerformed apla dimiourgite problima me to borderLayout kai de fainonte, deite parakatw shmeiwsh gia lusi
     String employee_Name = "", birth_Date = "", startWorking_Date = "", is_Married = "", numOf_Kids = "", specialityName = "", education_lvl = "";
     String department_Name = "", department_descr = "";
     String project_Name = "", project_description = "", gross_revenue = "", general_expenses = "", operational_expenses = "";
@@ -259,17 +260,21 @@ public class CompanyCMS extends JFrame implements ActionListener{
 
 
     public static void main(String[] args) {
+        //Prwta diabazw xexwrista olous tous employees, ta dep kai t aprojects kai emta anthetw se ayta tis epimerus leptomeries opws poioi employees einai se poia projects klp
         File_utilities f = new File_utilities();
         employees = f.readEmployeesFromDir("C:\\Users\\Anastasios\\Desktop\\Company_Cms\\DB\\Employees");
         departments = f.readDepartmentsFromDir("C:\\Users\\Anastasios\\Desktop\\Company_Cms\\DB\\Departments");
         all_projects = f.readProjectsFromDir("C:\\Users\\Anastasios\\Desktop\\Company_Cms\\DB\\Projects");
 
+        //edw ousiastika sumplirwnw tis extra plirofories
         f.setProjectsToEmployees("C:\\Users\\Anastasios\\Desktop\\Company_Cms\\DB\\Employees", employees, all_projects);
         f.setDepartmentsToEmployees("C:\\Users\\Anastasios\\Desktop\\Company_Cms\\DB\\Departments", employees, departments);
 
         CompanyCMS m = new CompanyCMS();
         m.setVisible(true);
 
+
+        //SHMEIWSH: den prolaba na kanw to write se arxeia alla den einai kati parapanw apo mia bufferwriter mesw miaw system.out.println me anakteythinsi exodou se arxeio.
     }
 
 
