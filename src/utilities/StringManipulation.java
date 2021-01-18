@@ -2,8 +2,6 @@ package utilities;
 import company_objects.Department;
 import company_objects.Employee;
 import company_objects.Project;
-import jdk.swing.interop.SwingInterOpUtils;
-
 import java.util.ArrayList;
 import java.util.Objects;
 
@@ -20,6 +18,7 @@ public class StringManipulation {
 
     public boolean IsTrue(String object){return Objects.equals("Y", object.toUpperCase());}
 
+    //pernw to string apo to arxeio, to spaw sumfwna me ena delimeter (eg ":") kai to bazw mesa se metablites. argotera dimiourgw ena neo instanse employee kai ton epistrefw gia an prostethei stin general lista
     public Employee EmployeeFromFileTokenized(String object_to_be_tokenized){
         String[] res_tmp    =   object_to_be_tokenized.split(":");
         StringManipulation man = new StringManipulation();
@@ -39,6 +38,7 @@ public class StringManipulation {
         return e;
     }
 
+    //omoia me employee parapanw
     public Department DepartmentFromFileTokenized(String object_to_be_tokenized){
         String[] res_tmp    =   object_to_be_tokenized.split(":");
 
@@ -49,6 +49,7 @@ public class StringManipulation {
         return d;
     }
 
+    //omoia me project parapanw
     public Project ProjectFromFileTokenized(String object_to_be_tokenized){
         String[] res_tmp = object_to_be_tokenized.split(":");
 
@@ -62,6 +63,7 @@ public class StringManipulation {
         return p;
     }
 
+    //diabazw ta arxeia twn employees kai prospathw na kanw extract se poio tmima anoikun kai na tus anathesw ekei
     public void getProjectsfromEmployees(String object_to_be_tokenized, ArrayList<Employee> employees, ArrayList<Project> projects){
         int employee_index = 0, projects_index = 0;
         String[] proj_tmp = new String[100];
@@ -89,8 +91,6 @@ public class StringManipulation {
             String begin_date = proj_tmp[i+2];
             String end_date = proj_tmp[i+3];
 
-
-
             for(int j = 0 ; j < projects.size() ; j++){
                 if(Objects.equals(project_name, projects.get(j).getProject_name())){
                     projects_index = j;
@@ -102,6 +102,7 @@ public class StringManipulation {
         }
     }
 
+    //diabazw ta departments kai prospathw na kanw extarct poioi employees uparxun mesa se ayutous gia an tus prosthesw
     public String[] getDepartmentsToEmployees(String object_to_be_tokenized, ArrayList<Employee> employees, ArrayList<Department> departments){
         int departments_index   = 0;
         int employee_index      = 0;
@@ -141,9 +142,6 @@ public class StringManipulation {
                 }
             }
         }
-
-
-
         return proj_tmp;
     }
 }

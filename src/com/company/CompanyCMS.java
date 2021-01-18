@@ -8,7 +8,6 @@ import company_objects.Project;
 import utilities.File_utilities;
 import java.util.ArrayList;
 import java.util.Objects;
-import javax.swing.JScrollPane;
 import javax.swing.JTable;
 
 
@@ -18,9 +17,9 @@ public class CompanyCMS extends JFrame implements ActionListener{
     String project_Name = "", project_description = "", gross_revenue = "", general_expenses = "", operational_expenses = "";
     String employee_name_search = "";
 
-    static ArrayList<Employee> employees;
-    static ArrayList<Department> departments;
-    static ArrayList<Project> all_projects;
+    static ArrayList<Employee> employees;       //apothikeusi olwn twn employees se mia lista
+    static ArrayList<Department> departments;   //apothikeusi olwn twn departments se mia lista
+    static ArrayList<Project> all_projects;     //apothikeusi olwn twn projects se mia lista
 
     JButton createEmployee      = new JButton("Create a new Employee");
     JButton createDepartment    = new JButton("Create a new Department");
@@ -68,6 +67,7 @@ public class CompanyCMS extends JFrame implements ActionListener{
         centerDiv.setLayout(new FlowLayout());
         createEmployees.setLayout(new FlowLayout());
         createDepartments.setLayout(new FlowLayout());
+        createProjects.setLayout(new FlowLayout());
         showOneEmployees.setLayout(new FlowLayout());
 
         createEmployee.addActionListener(this);
@@ -82,13 +82,24 @@ public class CompanyCMS extends JFrame implements ActionListener{
         applyEmployee.addActionListener(this);
         newsearch.addActionListener(this);
 
-        menu.add(createEmployee);
-        menu.add(createDepartment);
-        menu.add(createProject);
-        menu.add(showEmployees);
-        menu.add(showDepartments);
-        menu.add(showProjects);
-        menu.add(info);
+        createEmployees.add(createEmployee);
+        createEmployees.add(employeeName);
+        createEmployees.add(birthDate);
+        createEmployees.add(startWorkingDate);
+        createEmployees.add(isMarried);
+        createEmployees.add(numOfKids);
+        createEmployees.add(speciality);
+        createEmployees.add(educationLevel);
+        createEmployees.add(educationInfo);
+        createEmployees.add(saveEmployee);
+
+
+        createDepartments.add(createDepartment);
+        createDepartments.add(createProject);
+        createDepartments.add(showEmployees);
+        createDepartments.add(showDepartments);
+        createDepartments.add(showProjects);
+        createDepartments.add(info);
 
         centerDiv.add(info);
 
@@ -117,11 +128,6 @@ public class CompanyCMS extends JFrame implements ActionListener{
         showOneEmployees.add(applyEmployee);
         showOneEmployees.add(newsearch);
 
-        createEmployees.setVisible(false);
-        createDepartments.setVisible(false);
-        createProjects.setVisible(false);
-        showOneEmployees.setVisible(false);
-
         setLayout(new BorderLayout());
         add(menu,BorderLayout.NORTH);
         add(centerDiv, BorderLayout.SOUTH);
@@ -129,15 +135,18 @@ public class CompanyCMS extends JFrame implements ActionListener{
         add(createDepartments, BorderLayout.CENTER);
         add(createProjects, BorderLayout.CENTER);
         add(showOneEmployees, BorderLayout.CENTER);
+        //PROSOXI: O logos gia ton opoion den ektupwnete se kathe parathyro ta epimerus panels einai epeidi mporw na exw mono ena apo auta sto CENTER kai oxi olla mazi. [Den prolaba na brw lush gia auto]
+        //pithanon me ti xriis borderlayout mesa se broder layout
+        //ean thelete na to dokimasete kathe ena panel xexwrista (epeidi doulevun) apla kratiste mono ena  sto CENTER kai kante ta ypoloipa comment (proosxi thelei kai parakatyw comment)
     }
 
     public void actionPerformed(ActionEvent e){
         if(e.getSource() == createEmployee){
-            createEmployees.setVisible(true);
+             createEmployees.setVisible(true);
         }else if(e.getSource() == createDepartment){
-            createDepartments.setVisible(true);
+             createDepartments.setVisible(true);
         }else if(e.getSource() == createProject){
-            createProjects.setVisible(true);
+             createProjects.setVisible(true);
         }else if(e.getSource() == showEmployees){
             newsearch.setVisible(false);
             showOneEmployees.setVisible(true);
@@ -148,6 +157,7 @@ public class CompanyCMS extends JFrame implements ActionListener{
 
 
         }else if(e.getSource() == saveEmployee){
+            //parsarisma twn epimerus metablitwn apo ta textareas kai anathesi tous se metablites pou tha perasw argotera stis methodous dimiourgous (omoia sta ypoloipa)
             employee_Name       = employeeName.getText();
             birth_Date          = birthDate.getText();
             startWorking_Date   = startWorkingDate.getText();
@@ -160,10 +170,10 @@ public class CompanyCMS extends JFrame implements ActionListener{
             int edLevelint      = Integer.parseInt(education_lvl.trim());
 
             if(employees.add(new Employee(employee_Name, birth_Date, startWorking_Date, is_Married, numOFKIDSint , specialityName, edLevelint))){
-                JOptionPane.showMessageDialog(null,"Employee saved successfully", "Info", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null,"Employee saved successfully", "Info", JOptionPane.INFORMATION_MESSAGE); //parathyro eidopoiisi
                 createEmployees.setVisible(false);
             }else{
-                JOptionPane.showMessageDialog(null, "Employee didn't saved [Try Again]","Warning", JOptionPane.WARNING_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Employee didn't saved [Try Again]","Warning", JOptionPane.WARNING_MESSAGE); //parathyro eidopoiisi
             }
         }else if(e.getSource() == saveDepartment){
             department_Name     = department_name.getText();
@@ -195,24 +205,28 @@ public class CompanyCMS extends JFrame implements ActionListener{
 
             System.out.println(employees.size());
 
+            //anazitw to index tu upalilou gia ton opoio zitaw plirofoires emsa sti kedriki lista me toyus employees moy
             for(int i = 0 ; i< employees.size() ; i++){
                 if(Objects.equals(employee_name_search, employees.get(i).getName())){
                     employee_index = i;
                 }
             }
 
+            //body tou table 1
             String[][] info1 = {
                     {employees.get(employee_index).getName(),employees.get(employee_index).getBirthDate().getDay()+"/"+employees.get(employee_index).getBirthDate().getMonth()+"/"+employees.get(employee_index).getBirthDate().getYear()
                     ,employees.get(employee_index).getStart_work().getDay()+"/"+employees.get(employee_index).getStart_work().getMonth()+"/"+employees.get(employee_index).getStart_work().getYear()
                     ,String.valueOf(employees.get(employee_index).getMarriedState()), String.valueOf(employees.get(employee_index).getNum_of_kids()), employees.get(employee_index).getEducation_name()}
             };
 
+            //body tou table 2
             String[][] info2 = {
                     {employees.get(employee_index).getDepartment().getDepartment_name(), String.valueOf(employees.get(employee_index).getManagerState()), String.valueOf(employees.get(employee_index).getSalary())}
             };
 
+            //header table1
             String[] header1 = {"Full Name", "Birth Date", "Started Working Date", "Married" , "Number of Kids", "Education Level"};
-
+            //header table2
             String[] header2 = {"Department", "Manager state", "Total Salary"};
 
             JTable employeeTable1 = new JTable(info1,header1);
@@ -221,13 +235,14 @@ public class CompanyCMS extends JFrame implements ActionListener{
             showOneEmployees.add(new JScrollPane(employeeTable1));
             showOneEmployees.add(new JScrollPane(employeeTable2));
 
-            newsearch.setVisible(true);
+            newsearch.setVisible(true); //twra emfanizw to koumpi neo search gia na anewsw ta pedia
             employee_name.setVisible(false);
             applyEmployee.setVisible(false);
         }else if(e.getSource() == newsearch){
+            //kanw removeall gia na kanw clear ta PANELS alla epeii auto tha mu diagrapsei kai ta components tu panel ta xanadimiourgw (kanw xana add)
             showOneEmployees.setVisible(false);
 
-            //showOneEmployees.removeAll();
+            showOneEmployees.removeAll();
 
             showOneEmployees.add(employee_name);
             showOneEmployees.add(applyEmployee);
@@ -254,40 +269,6 @@ public class CompanyCMS extends JFrame implements ActionListener{
 
         CompanyCMS m = new CompanyCMS();
         m.setVisible(true);
-
-        //Project proj1 = new Project();
-
-        //MoneyUtilities m1 = new MoneyUtilities();
-        //EmployeeManipulation man = new EmployeeManipulation();
-//
-        //Employee e1 = new Employee("Anastasios", "10/05/1997", "20/02/2020", "Y", 2, "Software Engineer", 3);
-        //Employee e2 = new Employee("Mitsos", "10/05/1995", "10/02/2020", "Y", 1, "FrontEnd Developer", 1);
-//
-        //Department d1 = new Department("Software Analysis", "The best dep");
-        //Department d2 = new Department("Social Media", "The best dep");
-//
-        //man.MoveEmployee(e1,d1, "Y", "10/10/2020");
-        //man.MoveEmployee(e2,d2,"Y",  "5/10/2020");
-        //man.MoveEmployee(e1,d2, "n", "10/10/2020");
-//
-        //Project Acropolis = new Project("Acropolis", "Acropolis maintenance", "256788", "100000", "20000");
-        ////all_projects.add(Acropolis);
-        //Acropolis.setEmployeeToProject(e1,"10/05/2020","20/07/2020");
-        //Acropolis.setEmployeeToProject(e2,"10/05/2020","20/08/2020");
-//
-        //Project SNF = new Project("Stavros Niarxos Foundation", "Construction of SNF building", "400000", "5000", "10000");
-        ////all_projects.add(SNF);
-//
-        //e1.setProjectToEmployee(Acropolis);
-        //e2.setProjectToEmployee(Acropolis);
-
-        //System.out.println(d2.getDepartment_name()+" total employees salary = "+m1.TotalDepartmentsEmployeesSalary(d2));
-        //System.out.println("Total employees salary for the project "+Acropolis.getProject_name()+" is "+Acropolis.getTotalProjectsEmployeesSalary());
-        //System.out.println("Total income for a project = "+m1.trueProjectIncome(Acropolis));
-
-       // proj1 = m1.bestProject(all_projects);
-        //System.out.println("The best project, based on the total income is "+proj1.getProject_name());
-
 
     }
 

@@ -8,6 +8,7 @@ public class File_utilities {
 
     public File_utilities(){}
 
+    //anoigw ena arxeio me ti methodo bufferedReader kai to apothikeuw mes aser mia emtabltii tin opoia meta tin kanw concat kai ti xeirizome mesa se mia methodo (OMOIA TA PARAKATW)
     public ArrayList<Employee> readEmployeesFromDir(String path_to_dir){
         ArrayList<Employee> employees = new ArrayList<Employee>();
 

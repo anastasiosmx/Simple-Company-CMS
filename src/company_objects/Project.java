@@ -96,4 +96,6 @@ public class Project {
     public int getGeneral_expenses(){return this.general_expenses;}
 
     public int getOperating_expenses(){return this.operating_expenses;}
+
+    public String getDescription(){return  this.description;}
 }
